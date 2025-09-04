@@ -240,10 +240,7 @@ cd client && npm run build
 npm start
 ```
 
-### Docker (Optional)
-```bash
-docker-compose up --build
-```
+
 
 ## 🤝 Contributing
 
@@ -270,15 +267,4 @@ For support and questions:
 - Check existing documentation in `/docs`
 - Review API specification for integration help
 
-## 🎯 Roadmap
 
-- [ ] Mobile app development
-- [ ] Advanced AI recommendations
-- [ ] Integration with external APIs
-- [ ] Real-time notifications
-- [ ] Analytics dashboard
-- [ ] Multi-language support
-
----
-
-Made with ❤️ for students worldwide
