@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, Bell, Filter, AlertCircle, CheckCircle, BookOpen, GraduationCap } from 'lucide-react';
+import './TimelineTracker.css';
 
 export default function Timeline() {
   const [selectedMonth, setSelectedMonth] = useState('all');

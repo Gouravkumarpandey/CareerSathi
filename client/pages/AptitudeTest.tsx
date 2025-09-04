@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Check, RotateCcw, TrendingUp } from 'lucide-react';
+import './AptitudeTest.css';
 
 interface AssessmentProps {
   onComplete: (results: any) => void;

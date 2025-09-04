@@ -1,5 +1,6 @@
 import React from 'react';
 import { TrendingUp, BookOpen, MapPin, Calendar, Award, AlertCircle } from 'lucide-react';
+import './Dashboard.css';
 
 interface DashboardProps {
   user: { name: string; class: string; interests: string[] } | null;
@@ -35,101 +36,95 @@ export default function Dashboard({ user, onNavigate }: DashboardProps) {
   ];
 
   const quickStats = [
-    { label: 'Assessment Score', value: '85%', icon: TrendingUp, color: 'text-green-600' },
-    { label: 'Courses Explored', value: '12', icon: BookOpen, color: 'text-blue-600' },
-    { label: 'Colleges Shortlisted', value: '8', icon: MapPin, color: 'text-purple-600' },
-    { label: 'Applications Pending', value: '3', icon: AlertCircle, color: 'text-orange-600' }
+    { label: 'Assessment Score', value: '85%', icon: TrendingUp, color: 'stat-icon-green' },
+    { label: 'Courses Explored', value: '12', icon: BookOpen, color: 'stat-icon-blue' },
+    { label: 'Colleges Shortlisted', value: '8', icon: MapPin, color: 'stat-icon-purple' },
+    { label: 'Applications Pending', value: '3', icon: AlertCircle, color: 'stat-icon-orange' }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="dashboard-container">
+      <div className="dashboard-wrapper">
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="welcome-section">
+          <h1 className="welcome-title">
             Welcome back, {user?.name || 'Student'}!
           </h1>
-          <p className="text-gray-600">
+          <p className="welcome-subtitle">
             Here's your personalized guidance dashboard for making informed educational decisions.
           </p>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div className="stats-grid">
           {quickStats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+              <div key={index} className="stat-card">
+                <div className="stat-card-content">
+                  <div className="stat-info">
+                    <p className="stat-label">{stat.label}</p>
+                    <p className="stat-value">{stat.value}</p>
                   </div>
-                  <Icon className={`h-8 w-8 ${stat.color}`} />
+                  <Icon className={`stat-icon ${stat.color}`} />
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="dashboard-grid">
           {/* Personalized Recommendations */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">
+          <div>
+            <div className="recommendations-card">
+              <div className="recommendations-header">
+                <h2 className="recommendations-title">
                   Personalized Recommendations
                 </h2>
                 <button
                   onClick={() => onNavigate('assessment')}
-                  className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                  className="retake-button"
                 >
                   Retake Assessment
                 </button>
               </div>
               
-              <div className="space-y-4">
+              <div className="recommendations-list">
                 {recommendations.map((rec, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors duration-200"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold text-gray-900">{rec.title}</h3>
-                          <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
-                            {rec.match}% match
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-3">{rec.reason}</p>
-                        <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                          Learn More →
-                        </button>
-                      </div>
+                  <div key={index} className="recommendation-item">
+                    <div className="recommendation-header">
+                      <h3 className="recommendation-title">{rec.title}</h3>
+                      <span className="match-badge">
+                        {rec.match}% match
+                      </span>
                     </div>
+                    <p className="recommendation-reason">{rec.reason}</p>
+                    <button className="learn-more-button">
+                      Learn More →
+                    </button>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Upcoming Deadlines */}
-          <div>
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Upcoming Deadlines</h2>
-                <Calendar className="h-5 w-5 text-gray-400" />
+          {/* Sidebar */}
+          <div className="sidebar">
+            {/* Upcoming Deadlines */}
+            <div className="deadlines-card">
+              <div className="deadlines-header">
+                <h2 className="deadlines-title">Upcoming Deadlines</h2>
+                <Calendar className="calendar-icon" />
               </div>
               
-              <div className="space-y-4">
+              <div className="deadlines-list">
                 {upcomingDeadlines.map((deadline, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900 text-sm">{deadline.title}</p>
-                      <p className="text-xs text-gray-500">{deadline.date}</p>
+                  <div key={index} className="deadline-item">
+                    <div className="deadline-info">
+                      <p className="deadline-title">{deadline.title}</p>
+                      <p className="deadline-date">{deadline.date}</p>
                     </div>
-                    <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">
+                    <span className="deadline-badge">
                       {deadline.daysLeft} days
                     </span>
                   </div>
@@ -138,43 +133,43 @@ export default function Dashboard({ user, onNavigate }: DashboardProps) {
               
               <button
                 onClick={() => onNavigate('timeline')}
-                className="w-full mt-4 text-blue-600 hover:text-blue-700 text-sm font-medium text-center"
+                className="view-all-button"
               >
                 View All Events →
               </button>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="space-y-3">
+            <div className="quick-actions-card">
+              <h2 className="quick-actions-title">Quick Actions</h2>
+              <div className="quick-actions-list">
                 <button
                   onClick={() => onNavigate('assessment')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200"
+                  className="quick-action-button"
                 >
-                  <div className="flex items-center">
-                    <TrendingUp className="h-5 w-5 text-blue-600 mr-3" />
-                    <span className="text-sm font-medium">Take Assessment</span>
+                  <div className="quick-action-content">
+                    <TrendingUp className="quick-action-icon blue" />
+                    <span className="quick-action-text">Take Assessment</span>
                   </div>
                 </button>
                 
                 <button
                   onClick={() => onNavigate('courses')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-green-300 hover:bg-green-50 transition-colors duration-200"
+                  className="quick-action-button green"
                 >
-                  <div className="flex items-center">
-                    <BookOpen className="h-5 w-5 text-green-600 mr-3" />
-                    <span className="text-sm font-medium">Explore Courses</span>
+                  <div className="quick-action-content">
+                    <BookOpen className="quick-action-icon green" />
+                    <span className="quick-action-text">Explore Courses</span>
                   </div>
                 </button>
                 
                 <button
                   onClick={() => onNavigate('colleges')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-colors duration-200"
+                  className="quick-action-button purple"
                 >
-                  <div className="flex items-center">
-                    <MapPin className="h-5 w-5 text-purple-600 mr-3" />
-                    <span className="text-sm font-medium">Find Colleges</span>
+                  <div className="quick-action-content">
+                    <MapPin className="quick-action-icon purple" />
+                    <span className="quick-action-text">Find Colleges</span>
                   </div>
                 </button>
               </div>

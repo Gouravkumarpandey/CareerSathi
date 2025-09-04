@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Star, DollarSign, Users, Wifi, Home, Book, Award, Filter } from 'lucide-react';
+import './CollegeDirectory.css';
 
 export default function CollegeDirectory() {
   const [searchTerm, setSearchTerm] = useState('');

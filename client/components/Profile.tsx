@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, Edit3, Save, X, MapPin, Calendar, BookOpen, Target, Award, TrendingUp } from 'lucide-react';
+import './Profile.css';
 
 interface ProfileProps {
   user: any;

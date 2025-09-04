@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight } from 'lucide-react';
+import './Auth.css';
 
 interface AuthProps {
   onLogin: (userData: any) => void;
@@ -36,16 +37,16 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-blue-100">
-            <User className="h-6 w-6 text-blue-600" />
+    <div className="auth-container">
+      <div className="auth-wrapper">
+        <div className="auth-header">
+          <div className="auth-icon-wrapper">
+            <User className="auth-icon" />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+          <h2 className="auth-title">
             {isLogin ? 'Welcome back' : 'Create your account'}
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="auth-subtitle">
             {isLogin 
               ? 'Sign in to access your personalized career guidance'
               : 'Join thousands of students finding their perfect career path'
@@ -53,21 +54,21 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-fields">
             {!isLogin && (
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <div className="form-group">
+                <label htmlFor="name" className="form-label">
                   Full Name
                 </label>
-                <div className="mt-1 relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <div className="input-wrapper">
+                  <User className="input-icon" />
                   <input
                     id="name"
                     name="name"
                     type="text"
                     required={!isLogin}
-                    className="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10"
+                    className="form-input"
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
@@ -76,19 +77,19 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
               </div>
             )}
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
                 Email Address
               </label>
-              <div className="mt-1 relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <div className="input-wrapper">
+                <Mail className="input-icon" />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10"
+                  className="form-input"
                   placeholder="Enter your email address"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
@@ -96,19 +97,19 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <div className="mt-1 relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <div className="input-wrapper">
+                <Lock className="input-icon" />
                 <input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete={isLogin ? 'current-password' : 'new-password'}
                   required
-                  className="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10"
+                  className="form-input"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) => handleInputChange('password', e.target.value)}
@@ -118,9 +119,9 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
 
             {!isLogin && (
               <>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="age" className="block text-sm font-medium text-gray-700">
+                <div className="form-grid">
+                  <div className="form-group">
+                    <label htmlFor="age" className="form-label">
                       Age
                     </label>
                     <input
@@ -129,21 +130,21 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
                       type="number"
                       min="15"
                       max="25"
-                      className="mt-1 appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      className="form-input form-input-no-icon"
                       placeholder="Age"
                       value={formData.age}
                       onChange={(e) => handleInputChange('age', e.target.value)}
                     />
                   </div>
                   
-                  <div>
-                    <label htmlFor="class" className="block text-sm font-medium text-gray-700">
+                  <div className="form-group">
+                    <label htmlFor="class" className="form-label">
                       Class
                     </label>
                     <select
                       id="class"
                       name="class"
-                      className="mt-1 appearance-none relative block w-full px-3 py-3 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      className="form-select"
                       value={formData.class}
                       onChange={(e) => handleInputChange('class', e.target.value)}
                     >
@@ -155,15 +156,15 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+                <div className="form-group">
+                  <label htmlFor="location" className="form-label">
                     Location
                   </label>
                   <input
                     id="location"
                     name="location"
                     type="text"
-                    className="mt-1 appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="form-input form-input-no-icon"
                     placeholder="Enter your city"
                     value={formData.location}
                     onChange={(e) => handleInputChange('location', e.target.value)}
@@ -173,21 +174,19 @@ export default function Auth({ onLogin, onRegister }: AuthProps) {
             )}
           </div>
 
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
-            >
-              {isLogin ? 'Sign in' : 'Create account'}
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="submit-button"
+          >
+            {isLogin ? 'Sign in' : 'Create account'}
+            <ArrowRight className="submit-arrow" />
+          </button>
 
-          <div className="text-center">
+          <div className="toggle-auth">
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+              className="toggle-button"
             >
               {isLogin 
                 ? "Don't have an account? Sign up" 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Filter, TrendingUp, DollarSign, Clock, Users, ChevronRight, Star } from 'lucide-react';
+import './CourseExplorer.css';
 
 export default function CourseExplorer() {
   const [selectedCategory, setSelectedCategory] = useState('all');
